@@ -13,6 +13,7 @@ const getbook=require('./routeHandler/getbook');
 const getplace=require('./routeHandler/stateHandler');
 const addtravel=require('./routeHandler/travelHandler');
 app.use(cors());
+const PORT=process.env.PORT || 8000;
 const DATABASE=process.env.DATABASE;
 //const password='PfmoRTlhoJJ5ivoN';
 
@@ -40,8 +41,8 @@ app.use('/travel',addtravel);
 app.get("/",(req,res)=>{
     res.json({"success":'ok'})
 })
-app.listen(8000,()=>{
-    console.log("server start at http://localhost:8000 port");
+app.listen(PORT,()=>{
+    console.log(`server start at port no ${PORT}`);
 });
 
 

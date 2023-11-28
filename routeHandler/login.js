@@ -26,6 +26,7 @@ loginRouter.post('/',async (req,res)=>{
             return res.json({error: 'invalid credentials'});
         }
         const token = await jwt.sign({ data:{email: req.body.email}}, SECRET);
+       
         res.json({success: 'OK', token})
     }
     catch(err){

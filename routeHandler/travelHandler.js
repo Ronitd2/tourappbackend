@@ -17,7 +17,7 @@ router.post('/',async(req,res)=>{
         console.log('Hello');
         const traveladd={
             bookid:destdata._id,
-            placelist:req.body.travelplace
+            placelist:req.body.travelplace 
         }
         const travellist = new TravelListModel(traveladd);
         await travellist.save();

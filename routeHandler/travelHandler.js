@@ -11,7 +11,7 @@ router.post('/',async(req,res)=>{
     }
     console.log(destdata);
     const traveldata=await TravelListModel.find({bookid:destdata._id});
-    //console.log(traveldata[0].placelist)
+    console.log(traveldata[0].placelist)
     if(traveldata.length==0)
     {
         console.log('Hello');

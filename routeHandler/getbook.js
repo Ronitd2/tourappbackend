@@ -20,7 +20,7 @@ router.post("/", async (req,res)=>{
         res.json(bookinghistroy);
     }
     else{
-        return res.json({name: userdata.name});
+        return res.json({error:"No Booking History"});
     }
 }catch(error){
     console.log(error);

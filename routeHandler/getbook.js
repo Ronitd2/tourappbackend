@@ -17,10 +17,10 @@ router.post("/", async (req,res)=>{
     const bookinghistroy=  await UserBookSchema.find({user_id:userdata._id});
     console.log(bookinghistroy);
     if(bookinghistroy){
-        res.json(bookinghistroy);
+        res.json({bookinghistroy:bookinghistroy,name:userdata.name});
     }
     else{
-        return res.json({error:"No Booking History"});
+        return res.json({name:userdata.name});
     }
 }catch(error){
     console.log(error);

@@ -2,9 +2,16 @@ const express=require('express');
 const router = express.Router();
 const TravelListModel =require("../models/TravelListSchema");
 const UserBookSchema =require("../models/user_booking_schema");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const SECRET = 'DUMBARSE';
 
 router.post('/',async(req,res)=>{
-    const destdata= await UserBookSchema.find({date:req.body.date , destname:req.body.place});
+    const decoded = jwt.verify(req.body.token, SECRET);
+    const uemail=decoded.data.email;
+    const userdata= await User.find({email:uemail});
+    const destdata= await UserBookSchema.find({date:req.body.date , destname:req.body.place , user_id:userdata._id});
     if(destdata.length==0)
     {
         return res.json({error: 'You have not booked the place yet'});

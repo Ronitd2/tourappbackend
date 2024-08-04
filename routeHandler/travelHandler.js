@@ -8,9 +8,11 @@ const jwt = require('jsonwebtoken');
 const SECRET = 'DUMBARSE';
 
 router.post('/',async(req,res)=>{
+    console.log(req.body);
     const decoded = jwt.verify(req.body.token, SECRET);
     const uemail=decoded.data.email;
     const userdata= await User.find({email:uemail});
+    console.log(userdata);
     const destdata= await UserBookSchema.find({date:req.body.date , destname:req.body.place , user_id:userdata._id});
     if(destdata.length==0)
     {
@@ -28,7 +30,7 @@ router.post('/',async(req,res)=>{
         }
         const travellist = new TravelListModel(traveladd);
         await travellist.save();
-        res.json({acknowledge:'Sucessfull'});
+        res.json({acknowledge:'Successfull'});
     }
     else{
         const checkplace=traveldata[0].placelist.find((place)=>{

@@ -14,7 +14,7 @@ router.post('/',async(req,res)=>{
     const uemail=decoded.data.email;
     const userdata= await User.find({email:uemail});
     console.log(userdata);
-    const destdata= await UserBookSchema.find({date:req.body.date , destname:req.body.place , user_id:userdata._id});
+    const destdata= await UserBookSchema.find({date:req.body.date , destname:req.body.place  });
     console.log(destdata);
     if(destdata.length==0)
     {
@@ -68,3 +68,5 @@ router.post('/travellist/',async(req,res)=>{
 })
 module.exports=router;
 // You have already  booked and add this  place
+
+// user_id:userdata._id

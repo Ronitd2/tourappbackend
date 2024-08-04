@@ -2,6 +2,7 @@ const express=require('express');
 const router = express.Router();
 const TravelListModel =require("../models/TravelListSchema");
 const UserBookSchema =require("../models/user_booking_schema");
+const User =require("../models/user_schema.js");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 

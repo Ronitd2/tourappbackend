@@ -15,6 +15,7 @@ router.post('/',async(req,res)=>{
     const userdata= await User.find({email:uemail});
     console.log(userdata);
     const destdata= await UserBookSchema.find({date:req.body.date , destname:req.body.place , user_id:userdata._id});
+    console.log(destdata);
     if(destdata.length==0)
     {
         return res.json({error: 'You have not booked the place yet'});

@@ -14,21 +14,21 @@ router.post('/',async(req,res)=>{
     const uemail=decoded.data.email;
     const userdata= await User.find({email:uemail});
     console.log(userdata);
-    const destdata= await UserBookSchema.find({date:req.body.date , destname:req.body.place  });
+    const destdata= await UserBookSchema.find({date:req.body.date , destname:req.body.place , user_id:userdata[0]._id});
     console.log(destdata);
     if(destdata.length==0)
     {
         return res.json({error: 'You have not booked the place yet'});
     }
     console.log(destdata);
-    const traveldata=await TravelListModel.find({bookid:destdata._id});
-    // console.log(traveldata[0].placelist)
+    const traveldata=await TravelListModel.find({bookid:destdata[0]._id});
+    //console.log(traveldata[0].placelist)
     console.log(traveldata);
     if(traveldata.length==0)
     {
         console.log('Hello');
         const traveladd={
-            bookid:destdata._id,
+            bookid:destdata[0]._id,
             placelist:req.body.travelplace 
         }
         const travellist = new TravelListModel(traveladd);
@@ -45,7 +45,7 @@ router.post('/',async(req,res)=>{
         console.log("Hello World");
         const travv= [...traveldata[0].placelist,req.body.travelplace];
         console.log(travv);
-        await TravelListModel.updateOne({ bookid: destdata._id},{$set:{"placelist":travv}});
+        await TravelListModel.updateOne({ bookid: destdata[0]._id},{$set:{"placelist":travv}});
         res.json({acknowledge:'Successfull'});
         }
         else{
@@ -58,7 +58,7 @@ router.post('/',async(req,res)=>{
 router.post('/travellist/',async(req,res)=>{
     console.log(req.body);
     const destdata= await UserBookSchema.find({date:req.body.traveldate , destname:req.body.travelplace});
-    const traveldata=await TravelListModel.find({bookid:destdata._id});
+    const traveldata=await TravelListModel.find({bookid:destdata[0]._id});
     if(traveldata.length==0)
     {
         return res.json({acknowledge: 'No Travel list' });  

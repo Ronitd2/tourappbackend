@@ -57,7 +57,10 @@ router.post('/',async(req,res)=>{
 
 router.post('/travellist/',async(req,res)=>{
     console.log(req.body);
-    const destdata= await UserBookSchema.find({date:req.body.traveldate , destname:req.body.travelplace});
+    const decoded = jwt.verify(req.body.token, SECRET);
+    const uemail=decoded.data.email;
+    const userdata= await User.find({email:uemail});
+    const destdata= await UserBookSchema.find({date:req.body.traveldate , destname:req.body.travelplace , user_id:userdata[0]._id});
     const traveldata=await TravelListModel.find({bookid:destdata[0]._id});
     if(traveldata.length==0)
     {
